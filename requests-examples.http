@@ -33,49 +33,55 @@ Authorization: Token 1ede7b69b0e310b8c0e226ef39dbcbb728644c93
 ###
 
 # попытка поменять объявление user1
-PATCH {{baseUrl}}/advertisements/1/
+PATCH {{baseUrl}}/advertisements/80/
 Content-Type: application/json
 Authorization: Token 5893ddeb399bf882360826763e56eddb93cea77a
 
 {
-  "status": "OPEN"
+  "status": "CLOSED"
 }
 
 ###
 # попытка поменять объявление admin
-PATCH {{baseUrl}}/advertisements/20/
+PATCH {{baseUrl}}/advertisements/57/
 Content-Type: application/json
 Authorization: Token 1ede7b69b0e310b8c0e226ef39dbcbb728644c93
 
 {
-  "status": "OPEN"
+  "status": "CLOSED"
 }
 
 ###
 
 # фильтрация по создателю
-GET {{baseUrl}}/advertisements/?creator=1
+GET {{baseUrl}}/advertisements/?creator=2
+Content-Type: application/json
+Authorization: Token 1ede7b69b0e310b8c0e226ef39dbcbb728644c93
+###
+
+# фильтрация по создателю
+GET {{baseUrl}}/advertisements/?status=CLOSED
 Content-Type: application/json
 Authorization: Token 1ede7b69b0e310b8c0e226ef39dbcbb728644c93
 
 ###
 
 # фильтрация по дате
-GET {{baseUrl}}/advertisements/?created_at_after=2021-10-01
+GET {{baseUrl}}/advertisements/?created_at_before=2021-10-01
 Content-Type: application/json
 
 
 ###
 
 # попытка поменять объявление user1
-DELETE {{baseUrl}}/advertisements/4/
+DELETE {{baseUrl}}/advertisements/40/
 Content-Type: application/json
 Authorization: Token 5893ddeb399bf882360826763e56eddb93cea77a
 
 
 ###
 # попытка поменять объявление admin
-DELETE {{baseUrl}}/advertisements/38/
+DELETE {{baseUrl}}/advertisements/40/
 Content-Type: application/json
 Authorization: Token 1ede7b69b0e310b8c0e226ef39dbcbb728644c93
 

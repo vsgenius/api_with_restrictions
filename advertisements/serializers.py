@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-
 from advertisements.models import Advertisement
 
 
@@ -27,7 +26,6 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """Метод для создания"""
-
         # Простановка значения поля создатель по-умолчанию.
         # Текущий пользователь является создателем объявления
         # изменить или переопределить его через API нельзя.
@@ -40,12 +38,9 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
         # TODO: добавьте требуемую валидацию
-        print(data.get('status') )
-        if data.get('status') != None:
-            if len(Advertisement.objects.filter(status=data['status'],creator=self.context["request"].user)) > 10:
-                data['status'] = 'CLOSED'
-                return data
-        else:
-            if len(Advertisement.objects.filter(status='OPEN',creator=self.context["request"].user)) > 10:
-                return data
+        if self.context['request'].stream.method in ['POST','PATCH']:
+            print(data.get('status'))
+            if len(Advertisement.objects.filter(status='OPEN', creator=self.context["request"].user)) > 10 \
+                and data.get('status') != 'CLOSED':
+                raise serializers.ValidationError("Open ADV more 10")
         return data
