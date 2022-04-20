@@ -11,10 +11,6 @@ class AdvertisementViewSet(ModelViewSet):
     serializer_class = AdvertisementSerializer
     filter_class = AdvertisementFilter
 
-    class Meta:
-        model = Advertisement
-        fields = ['create_at']
-
     """ViewSet для объявлений."""
 
     # TODO: настройте ViewSet, укажите атрибуты для кверисета,
